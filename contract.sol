@@ -1,26 +1,24 @@
 pragma solidity ^0.5.16;
 
-contract Students{
-    struct students{
+contract CIEG {
+    
+    struct student{
         string name;
         string gender;
         uint age;
         string haddress;
-        uint groupno;
     }
     
-    mapping(uint=>students)  s_id;
+    mapping(uint=>student)  s_id;
     
-    function set (uint _rollno, string memory _name, string memory _gender, uint _age, string memory _haddress, uint _groupno) public {
-        s_id[_rollno]=students(_name,_gender,_age,_haddress,_groupno);
+    function set (uint _slno, string memory _name, string memory _gender, uint _age, string memory _haddress) public {
+        s_id[_slno]=student(_name,_gender,_age,_haddress);
     }
     
-    function get(uint _rollno) public view returns(string memory _name, string memory _gender, uint _age, string memory _haddress, uint _groupno){
-        _name = s_id[_rollno].name;
-        _gender = s_id[_rollno].gender;
-        _age = s_id[_rollno].age;
-        _haddress = s_id[_rollno].haddress;
-        _groupno = s_id[_rollno].groupno;
-        //return ();
+    function get(uint _slno) public view returns(string memory _name, string memory _gender, uint _age, string memory _haddress){
+        _name = s_id[_slno].name;
+        _gender = s_id[_slno].gender;
+        _age = s_id[_slno].age;
+        _haddress = s_id[_slno].haddress;
     }
 }
