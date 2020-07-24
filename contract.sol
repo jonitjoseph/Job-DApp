@@ -2,7 +2,7 @@ pragma solidity ^0.5.16;
 
 contract CIEG {
     
-    // struct student{
+    // struct userType{
     //     string name;
     //     string gender;
     //     uint age;
