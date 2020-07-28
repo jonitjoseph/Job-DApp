@@ -1,0 +1,98 @@
+<mat-card class="create-card">
+  <form [formGroup]="form" (submit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Enter Company Name</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="ex: Google"
+        name="companyName"
+        formControlName="companyName"
+      />
+      <mat-error *ngIf="form.get('companyName').hasError('required')"
+        >Please Enter Company Name</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Enter Job Title</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="ex: Junior Developer"
+        name="jobTitle"
+        formControlName="jobTitle"
+      />
+      <mat-error *ngIf="form.get('jobTitle').hasError('required')"
+        >Please Enter Job Title</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Enter Job Category</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="ex: Developer"
+        name="jobCategory"
+        formControlName="jobCategory"
+      />
+      <mat-error *ngIf="form.get('jobCategory').hasError('required')"
+        >Please Enter Job Category</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Enter Job Location</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="ex: Newyork"
+        name="jobLocation"
+        formControlName="jobLocation"
+      />
+      <mat-error *ngIf="form.get('jobLocation').hasError('required')"
+        >Please Enter Job Location</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Enter Last Date</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="ex: time"
+        name="lastDate"
+        formControlName="lastDate"
+      />
+      <mat-error *ngIf="form.get('lastDate').hasError('required')"
+        >Please Enter Last Date</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Enter Job Type</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="ex: Fulltime, Parttime, Contract, Remote, Internship"
+        name="jobType"
+        formControlName="jobType"
+      />
+      <mat-error *ngIf="form.get('jobType').hasError('required')"
+        >Please Enter Job Type</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Enter Reward</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="ex: $100"
+        name="reward"
+        formControlName="reward"
+      />
+      <mat-error *ngIf="form.get('reward').hasError('required')"
+        >Please Enter Reward</mat-error
+      >
+    </mat-form-field>
+
+    <br />
+    <button mat-raised-button color="accent" type="submit">SAVE</button>
+  </form>
+</mat-card>

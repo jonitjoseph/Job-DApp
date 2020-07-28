@@ -1,0 +1,35 @@
+<mat-card class="create-card">
+  <form [formGroup]="form" (submit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Enter Name</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="ex: Abc"
+        name="name"
+        formControlName="name"
+      />
+      <mat-error *ngIf="form.get('name').hasError('minlength')"
+        >Please Enter 3+ characters</mat-error
+      >
+      <mat-error *ngIf="form.get('name').hasError('required')"
+        >Please Enter Name</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Enter Address</mat-label>
+      <input
+        matInput
+        placeholder="ex: 0Xa1sf5s65dEaR6s5Fdvkv7jd2"
+        name="address"
+        formControlName="address"
+      />
+      <mat-error *ngIf="form.get('address').invalid"
+        >Please Enter Address</mat-error
+      >
+    </mat-form-field>
+    <br />
+    <button mat-raised-button color="accent" type="submit">SAVE</button>
+  </form>
+</mat-card>

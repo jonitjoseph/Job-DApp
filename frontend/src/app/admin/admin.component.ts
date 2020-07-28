@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-admin',
@@ -7,15 +7,20 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./admin.component.css'],
 })
 export class AdminComponent implements OnInit {
-  userForm: FormGroup;
+  form: FormGroup;
 
   constructor() {}
 
   ngOnInit(): void {
-    this.userForm = new FormGroup({
-      username: new FormControl(null),
-      email: new FormControl(null),
-      gender: new FormControl(null)
+    this.form = new FormGroup({
+      name: new FormControl(null, {
+        validators: [Validators.required, Validators.minLength(3)],
+      }),
+      address: new FormControl(null, { validators: [Validators.required] }),
     });
+  }
+
+  onSubmit() {
+    console.log(this.form);
   }
 }

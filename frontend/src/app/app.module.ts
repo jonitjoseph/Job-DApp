@@ -11,6 +11,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { AdminComponent } from './admin/admin.component';
 import { EmployerComponent } from './employer/employer.component';
+import { CandidateComponent } from './candidate/candidate.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { EmployerComponent } from './employer/employer.component';
     FooterComponent,
     AdminComponent,
     EmployerComponent,
+    CandidateComponent,
   ],
   imports: [
     BrowserModule,
