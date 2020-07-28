@@ -1,7 +1,7 @@
-<mat-card class="create-card">
+<mat-card class="card">
   <form [formGroup]="form" (submit)="onSubmit()">
     <mat-form-field>
-      <mat-label>Enter Name</mat-label>
+      <mat-label>Job Provider Name</mat-label>
       <input
         matInput
         type="text"
@@ -10,23 +10,26 @@
         formControlName="name"
       />
       <mat-error *ngIf="form.get('name').hasError('minlength')"
-        >Please Enter 3+ characters</mat-error
+        >Please Enter 2+ characters</mat-error
       >
       <mat-error *ngIf="form.get('name').hasError('required')"
-        >Please Enter Name</mat-error
+        >Please Enter Job Provider Name</mat-error
       >
     </mat-form-field>
-
-    <mat-form-field class="example-full-width">
-      <mat-label>Enter Address</mat-label>
+    <br />
+    <mat-form-field>
+      <mat-label>Address</mat-label>
       <input
         matInput
-        placeholder="ex: 0Xa1sf5s65dEaR6s5Fdvkv7jd2"
+        placeholder="ex: 0x0000000000000000000000000000000000000000"
         name="address"
         formControlName="address"
       />
-      <mat-error *ngIf="form.get('address').invalid"
+      <mat-error *ngIf="form.get('address').hasError('required')"
         >Please Enter Address</mat-error
+      >
+      <mat-error *ngIf="form.get('address').hasError('minlength')"
+        >Please Enter Valid Address</mat-error
       >
     </mat-form-field>
     <br />

@@ -1,0 +1,8 @@
+.card {
+  max-width: 300px;
+  margin: 2rem;
+}
+.header-image {
+  background-image: url("/assets/profile.svg");
+  background-size: cover;
+}

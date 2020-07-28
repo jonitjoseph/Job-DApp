@@ -14,13 +14,20 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
     this.form = new FormGroup({
       name: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(3)],
+        validators: [Validators.required, Validators.minLength(2)],
       }),
-      address: new FormControl(null, { validators: [Validators.required] }),
+      address: new FormControl(null, {
+        validators: [Validators.required, Validators.minLength(42)],
+      }),
     });
   }
 
   onSubmit() {
-    console.log(this.form);
+    if (this.form.invalid) {
+      alert('Invalid Form Data');
+      return;
+    } else {
+      console.log(this.form);
+    }
   }
 }

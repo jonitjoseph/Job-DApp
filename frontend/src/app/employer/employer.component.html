@@ -1,7 +1,7 @@
-<mat-card class="create-card">
+<mat-card class="card">
   <form [formGroup]="form" (submit)="onSubmit()">
     <mat-form-field>
-      <mat-label>Enter Company Name</mat-label>
+      <mat-label>Company Name</mat-label>
       <input
         matInput
         type="text"
@@ -13,8 +13,9 @@
         >Please Enter Company Name</mat-error
       >
     </mat-form-field>
+    <br />
     <mat-form-field>
-      <mat-label>Enter Job Title</mat-label>
+      <mat-label>Job Title</mat-label>
       <input
         matInput
         type="text"
@@ -26,8 +27,9 @@
         >Please Enter Job Title</mat-error
       >
     </mat-form-field>
+    <br />
     <mat-form-field>
-      <mat-label>Enter Job Category</mat-label>
+      <mat-label>Job Category</mat-label>
       <input
         matInput
         type="text"
@@ -39,8 +41,9 @@
         >Please Enter Job Category</mat-error
       >
     </mat-form-field>
+    <br />
     <mat-form-field>
-      <mat-label>Enter Job Location</mat-label>
+      <mat-label>Job Location</mat-label>
       <input
         matInput
         type="text"
@@ -52,8 +55,9 @@
         >Please Enter Job Location</mat-error
       >
     </mat-form-field>
+    <br />
     <mat-form-field>
-      <mat-label>Enter Last Date</mat-label>
+      <mat-label>Last Date</mat-label>
       <input
         matInput
         type="text"
@@ -65,8 +69,9 @@
         >Please Enter Last Date</mat-error
       >
     </mat-form-field>
+    <br />
     <mat-form-field>
-      <mat-label>Enter Job Type</mat-label>
+      <mat-label>Job Type</mat-label>
       <input
         matInput
         type="text"
@@ -78,11 +83,12 @@
         >Please Enter Job Type</mat-error
       >
     </mat-form-field>
+    <br />
     <mat-form-field>
-      <mat-label>Enter Reward</mat-label>
+      <mat-label>Reward</mat-label>
       <input
         matInput
-        type="text"
+        type="number"
         placeholder="ex: $100"
         name="reward"
         formControlName="reward"
@@ -91,7 +97,7 @@
         >Please Enter Reward</mat-error
       >
     </mat-form-field>
-
+    <br />
     <br />
     <button mat-raised-button color="accent" type="submit">SAVE</button>
   </form>

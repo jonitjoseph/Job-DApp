@@ -1,99 +1,105 @@
-<mat-card class="create-card">
-    <form [formGroup]="form" (submit)="onSubmit()">
-      <mat-form-field>
-        <mat-label>Enter Name</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="ex: Adam"
-          name="name"
-          formControlName="name"
-        />
-        <mat-error *ngIf="form.get('name').hasError('required')"
-          >Please Enter Name</mat-error
-        >
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Enter Age</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="ex: 20"
-          name="age"
-          formControlName="age"
-        />
-        <mat-error *ngIf="form.get('age').hasError('required')"
-          >Please Enter Age</mat-error
-        >
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Enter Institution Name</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="ex: IIITMK"
-          name="instName"
-          formControlName="instName"
-        />
-        <mat-error *ngIf="form.get('instName').hasError('required')"
-          >Please Enter Institution Name</mat-error
-        >
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Enter Aadhar Number</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="ex: 1234 5678"
-          name="aNumber"
-          formControlName="aNumber"
-        />
-        <mat-error *ngIf="form.get('aNumber').hasError('required')"
-          >Please Enter Aadhar Number</mat-error
-        >
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Enter Phone Number</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="ex: 9876543210"
-          name="phNumber"
-          formControlName="phNumber"
-        />
-        <mat-error *ngIf="form.get('phNumber').hasError('required')"
-          >Please Enter Phone Number</mat-error
-        >
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Enter Email</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="ex: adam@gmail.com"
-          name="email"
-          formControlName="email"
-        />
-        <mat-error *ngIf="form.get('email').hasError('required')"
-          >Please Enter Email</mat-error
-        >
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Enter Qualification</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="ex: B.Tech CS"
-          name="qualification"
-          formControlName="qualification"
-        />
-        <mat-error *ngIf="form.get('qualification').hasError('required')"
-          >Please Enter Qualification</mat-error
-        >
-      </mat-form-field>
-  
-      <br />
-      <button mat-raised-button color="accent" type="submit">SAVE</button>
-    </form>
-  </mat-card>
-  
+<mat-card class="card">
+  <form [formGroup]="form" (submit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="ex: Adam"
+        name="name"
+        formControlName="name"
+      />
+      <mat-error *ngIf="form.get('name').hasError('required')"
+        >Please Enter Name</mat-error
+      >
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Age</mat-label>
+      <input
+        matInput
+        type="number"
+        min="1"
+        placeholder="ex: 20"
+        name="age"
+        formControlName="age"
+      />
+      <mat-error *ngIf="form.get('age').hasError('required')"
+        >Please Enter Age</mat-error
+      >
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Institution Name</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="ex: IIITMK"
+        name="instName"
+        formControlName="instName"
+      />
+      <mat-error *ngIf="form.get('instName').hasError('required')"
+        >Please Enter Institution Name</mat-error
+      >
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Aadhar Number</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="ex: 1234 5678"
+        name="aNumber"
+        formControlName="aNumber"
+      />
+      <mat-error *ngIf="form.get('aNumber').hasError('required')"
+        >Please Enter Aadhar Number</mat-error
+      >
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Phone Number</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="ex: 9876543210"
+        name="phNumber"
+        formControlName="phNumber"
+      />
+      <mat-error *ngIf="form.get('phNumber').hasError('required')"
+        >Please Enter Phone Number</mat-error
+      >
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        type="email"
+        placeholder="ex: adam@gmail.com"
+        name="email"
+        formControlName="email"
+      />
+      <mat-error *ngIf="form.get('email').hasError('required')"
+        >Please Enter Email</mat-error
+      >
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Qualification</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="ex: B.Tech CS"
+        name="qualification"
+        formControlName="qualification"
+      />
+      <mat-error *ngIf="form.get('qualification').hasError('required')"
+        >Please Enter Qualification</mat-error
+      >
+    </mat-form-field>
+    <br />
+    <br />
+    <button mat-raised-button color="accent" type="submit">SAVE</button>
+  </form>
+</mat-card>
