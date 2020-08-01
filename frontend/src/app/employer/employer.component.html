@@ -29,20 +29,6 @@
     </mat-form-field>
     <br />
     <mat-form-field>
-      <mat-label>Job Category</mat-label>
-      <input
-        matInput
-        type="text"
-        placeholder="ex: Developer"
-        name="jobCategory"
-        formControlName="jobCategory"
-      />
-      <mat-error *ngIf="form.get('jobCategory').hasError('required')"
-        >Please Enter Job Category</mat-error
-      >
-    </mat-form-field>
-    <br />
-    <mat-form-field>
       <mat-label>Job Location</mat-label>
       <input
         matInput
@@ -53,20 +39,6 @@
       />
       <mat-error *ngIf="form.get('jobLocation').hasError('required')"
         >Please Enter Job Location</mat-error
-      >
-    </mat-form-field>
-    <br />
-    <mat-form-field>
-      <mat-label>Last Date</mat-label>
-      <input
-        matInput
-        type="text"
-        placeholder="ex: time"
-        name="lastDate"
-        formControlName="lastDate"
-      />
-      <mat-error *ngIf="form.get('lastDate').hasError('required')"
-        >Please Enter Last Date</mat-error
       >
     </mat-form-field>
     <br />

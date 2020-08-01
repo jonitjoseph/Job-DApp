@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { DappService } from '../service/dapp.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-
-  constructor() { }
+  jobs = this.dapp.getJobs();
+  constructor(private dapp: DappService) {}
 
   ngOnInit(): void {
+    this.dapp.onEvent('JobCreated').subscribe(() => {
+      this.jobs = this.dapp.getJobs();
+    });
   }
-
 }

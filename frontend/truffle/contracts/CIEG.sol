@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 pragma solidity >= 0.5.0 < 0.7.0;
 
 contract CIEG {
@@ -12,32 +13,60 @@ contract CIEG {
   struct Candidate {
     string name;
     uint256 age;
-    string instName;
-    string aNumber;
     string phNumber;
     string email;
+    string instName;
     string qual;
   }
 
   struct Job {
+    uint256 id;
     string companyName;
     string jobTitle;
-    string category;
     string location;
-    string ldate;
     string jobType;
     uint256 reward;
   }
 
-  mapping(address => Candidate) public candidates;
-  mapping(uint => Job) public jobs;
+  mapping(address => Candidate) private candidates;
+  Job[] private jobs;
+
+  event JobCreated(uint256 _jobId);
   
-  function addCandidate(string memory _name, uint256 _age, string memory _instName, string memory _aNumber, string memory _phNumber, string memory _email, string memory _qual) public {
-      candidates[msg.sender] = Candidate(_name, _age, _instName, _aNumber, _phNumber, _email, _qual);
+  function addCandidate(string memory _name, uint256 _age, string memory _phNumber, string memory _email, string memory _instName, string memory _qual) public {
+      candidates[msg.sender] = Candidate(_name, _age, _phNumber, _email, _instName, _qual);
   }
   
-  function addJob(uint _id, string memory _companyName, string memory _jobTitle, string memory _category, string memory _location, string memory _ldate, string memory _jobType, uint256 _reward) public {
-      jobs[_id] = Job(_companyName, _jobTitle, _category, _location, _ldate, _jobType, _reward);
+  function addJob(string memory _companyName, string memory _jobTitle, string memory _location, string memory _jobType, uint256 _reward) public {
+      uint256 jobId = jobs.length;
+
+      Job memory newJob = Job({
+        id: jobId,
+        companyName: _companyName,
+        jobTitle: _jobTitle,
+        location: _location,
+        jobType: _jobType,
+        reward: _reward
+      });
+
+      jobs.push(newJob);
+      emit JobCreated(jobId);
+  }
+
+  function getJob(uint256 _jobId) external view returns(uint256, string memory, string memory, string memory, string memory, uint256) {
+    require(_jobId < jobs.length && _jobId >=0, "No job found!");
+    return(
+      jobs[_jobId].id,
+      jobs[_jobId].companyName,
+      jobs[_jobId].jobTitle,
+      jobs[_jobId].location,
+      jobs[_jobId].jobType,
+      jobs[_jobId].reward
+    );
+  }
+
+  function getAllJobs() external view returns(uint256) {
+    return jobs.length;
   }
 
 }
