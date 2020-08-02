@@ -15,9 +15,9 @@ const contractAbi = contractJSON.abi;
 export class Web3Service {
   private web3: Web3;
   private contract: Contract;
+  private account: any = null;
+  private enable: any;
   // private contractAddress = '0xd7334e9E0fafC4Bd7E81C5870bcf485DaD9929E5';
-  // private account: any = null; //medium
-  // private enable: any; //medium
 
   constructor() {
     if (window.web3) {
@@ -25,21 +25,49 @@ export class Web3Service {
       this.web3 = new Web3(
         new Web3.providers.HttpProvider('http://localhost:8545')
       );
-      this.contract = new this.web3.eth.Contract(
-        contractAbi,
-        contractAddress
-      );
-      window.ethereum.enable().catch((err) => {
-        console.log(err);
-      });
+      this.contract = new this.web3.eth.Contract(contractAbi, contractAddress);
+      this.enable = this.enableMetaMaskAccount();
+      // window.ethereum.enable().catch((err) => {
+      //   console.log(err);
+      // });
     } else {
       console.log('Metamask not Found! Install or Enable Metamask.');
       alert('Metamask not Found! Install or Enable Metamask.');
     }
   }
 
-  getAccount(): Promise<string> {
-    return this.web3.eth.getAccounts().then((accounts) => accounts[0] || '');
+  private async enableMetaMaskAccount(): Promise<any> {
+    let enable = false;
+    await new Promise((resolve, reject) => {
+      enable = window.ethereum.enable();
+    });
+    return Promise.resolve(enable);
+  }
+
+  public async getAccount(): Promise<string> {
+    console.log('web3.service / getAccount / start');
+    if (this.account == null) {
+      this.account = (await new Promise((resolve, reject) => {
+        console.log('web3.service / getAccount / eth');
+        console.log(window.web3.eth);
+        window.web3.eth.getAccounts((err, retAccount) => {
+          console.log('web3.service / getAccount / retAccount');
+          console.log(retAccount);
+          if (retAccount.length > 0) {
+            this.account = retAccount[0];
+            resolve(this.account);
+          } else {
+            alert('web3.service / getAccount / no accounts found.');
+            reject('No accounts found.');
+          }
+          if (err != null) {
+            alert('web3.service / getAccount / error retrieving account');
+            reject('Error retrieving account');
+          }
+        });
+      })) as Promise<any>;
+    }
+    return Promise.resolve(this.account);
   }
 
   async executeTransaction(fnName: string, ...args: any[]): Promise<any> {
@@ -55,12 +83,11 @@ export class Web3Service {
   onEvents(event: string) {
     return new Observable((observer) => {
       this.contract.events[event]().on('data', (data) => {
-          observer.next({
-            event: data.event,
-            payload: data.returnValues,
-          });
+        observer.next({
+          event: data.event,
+          payload: data.returnValues,
+        });
       });
     });
   }
-
 }
