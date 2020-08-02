@@ -11,8 +11,12 @@ export class HomeComponent implements OnInit {
   constructor(private dapp: DappService) {}
 
   ngOnInit(): void {
-    this.dapp.onEvent('JobCreated').subscribe(() => {
-      this.jobs = this.dapp.getJobs();
-    });
+    
+    this.getjobnumber();
+  }
+
+  async getjobnumber() {
+    this.jobs = this.dapp.getJobs();
+    // console.log(this.jobs);
   }
 }
