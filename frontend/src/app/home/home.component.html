@@ -36,7 +36,7 @@
       <p>Type :{{ job.jobType }}</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button>APPLY</button>
+      <button mat-button [routerLink]="['/candidate',job.id]">APPLY</button>
     </mat-card-actions>
   </mat-card>
   

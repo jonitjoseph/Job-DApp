@@ -7,16 +7,8 @@ import { DappService } from '../service/dapp.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  jobs = this.dapp.getJobs();
   constructor(private dapp: DappService) {}
+  jobs = this.dapp.getJobs();
 
-  ngOnInit(): void {
-    
-    this.getjobnumber();
-  }
-
-  async getjobnumber() {
-    this.jobs = this.dapp.getJobs();
-    // console.log(this.jobs);
-  }
+  ngOnInit(): void {}
 }

@@ -28,8 +28,8 @@ export class DappService {
       jobTitle: jobRaw[2],
       location: jobRaw[3],
       jobType: jobRaw[4],
-      reward: parseInt(jobRaw[5])
-    }
+      reward: parseInt(jobRaw[5]),
+    };
   }
 
   async getNumofJobs() {
@@ -40,17 +40,19 @@ export class DappService {
       console.log(job);
       this.jobList.push(job);
     }
-    // return this.jobList;
     return this.jobList;
   }
 
-  createJob(
+  async createJob(
     companyName: string,
     jobTitle: string,
     location: string,
     jobType: string,
     reward: number
   ) {
+    const acc = await this.web3.getAccount();
+    localStorage.setItem('address', acc);
+    localStorage.setItem('type', 'employer');
     this.web3.executeTransaction(
       'addJob',
       companyName,
@@ -59,6 +61,33 @@ export class DappService {
       jobType,
       reward
     );
+  }
+
+  async candidateApplication(
+    jobId: number,
+    name: string,
+    age: number,
+    phNumber: number,
+    qualification: string
+  ) {
+    const acc = await this.web3.getAccount();
+    const existingAddress = localStorage.getItem('address');
+    const existingType = localStorage.getItem('type');
+    if (existingAddress === acc && existingType === 'employer') {
+      alert('Employer cannot enroll for job!');
+      console.log('Employer cannot enroll for job!');
+    } else {
+      localStorage.setItem('address', acc);
+      localStorage.setItem('type', 'candidate');
+      this.web3.executeTransaction(
+        'addCandidate',
+        jobId,
+        name,
+        age,
+        phNumber,
+        qualification
+      );
+    }
   }
 
   onEvent(name: string) {

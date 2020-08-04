@@ -72,7 +72,16 @@ export class Web3Service {
 
   async executeTransaction(fnName: string, ...args: any[]): Promise<any> {
     const acc = await this.getAccount();
-    this.contract.methods[fnName](...args).send({ from: acc, gas: 6000000 });
+    console.log(acc);
+    this.contract.methods[fnName](...args)
+      .send({ from: acc, gas: 6000000 })
+      .on('transactionHash', (hash) => {
+        console.log('Successful Transaction!',hash);
+      })
+      .on('error', (error) => {
+        console.log(error.message);
+        console.log('Transaction Unsuccessfull!');
+      });
   }
 
   async call(fnName: string, ...args: any[]) {

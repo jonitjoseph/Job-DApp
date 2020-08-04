@@ -11,11 +11,12 @@ contract CIEG {
 
   uint256 perfMatrix;
   struct Candidate {
+    uint256 applJobId;
     string name;
     uint256 age;
     string phNumber;
-    string email;
-    string instName;
+    // string email;
+    // string instName;
     string qual;
   }
 
@@ -33,8 +34,9 @@ contract CIEG {
 
   event JobCreated(uint256 _jobId);
   
-  function addCandidate(string memory _name, uint256 _age, string memory _phNumber, string memory _email, string memory _instName, string memory _qual) public {
-      candidates[msg.sender] = Candidate(_name, _age, _phNumber, _email, _instName, _qual);
+  function addCandidate(uint256 _applJobId, string memory _name, uint256 _age, string memory _phNumber, string memory _qual) public {
+    //    string memory _email, string memory _instName,  _email, _instName,
+      candidates[msg.sender] = Candidate(_applJobId, _name, _age, _phNumber, _qual);
   }
   
   function addJob(string memory _companyName, string memory _jobTitle, string memory _location, string memory _jobType, uint256 _reward) public {
