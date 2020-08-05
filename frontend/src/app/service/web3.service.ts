@@ -79,6 +79,7 @@ export class Web3Service {
       })
       .on('error', (error) => {
         console.log(error.message);
+        alert(error.message);
         console.log('Transaction Unsuccessfull!');
       });
   }

@@ -39,3 +39,18 @@
     <button mat-raised-button color="accent" type="submit">SAVE</button>
   </form>
 </mat-card>
+
+<h1 style="text-align: center; margin: 1rem; margin-top: 2rem;">
+  Verified Employers List
+</h1>
+<br />
+<mat-card class="card" *ngFor="let emps of vEmployers | async">
+  <mat-card-header>
+    <div mat-card-avatar class="header-image"></div>
+    <mat-card-title>Name : {{ emps.name }}</mat-card-title>
+    <mat-card-subtitle>ID No. : {{ emps.id }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p style="margin-top: 1rem;">Address : {{ emps.address }}</p>
+  </mat-card-content>
+</mat-card>

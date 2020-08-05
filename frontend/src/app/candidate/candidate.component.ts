@@ -37,24 +37,20 @@ export class CandidateComponent implements OnInit {
         this.jobId = null;
       }
     });
-    console.log(this.jobId);
   }
 
   async onSubmit() {
-    console.log(this.form);
-    console.log(this.jobId);
     if (this.form.invalid) {
       return;
     } else {
       if (this.jobId == null) {
-        console.log('cannot submit without jobid');
+        console.log('Cannot submit without jobid');
       } else {
         this.acc = await this.dapp.getCurrentAccount();
         const existingAddress = localStorage.getItem('address');
         const existingType = localStorage.getItem('type');
         if (existingAddress === this.acc && existingType === 'employer') {
           alert('Employer cannot enroll for job!');
-          console.log('Employer cannot enroll for job!');
         } else {
           localStorage.setItem('address', this.acc);
           localStorage.setItem('type', 'candidate');
@@ -65,7 +61,6 @@ export class CandidateComponent implements OnInit {
             this.form.value.phNumber,
             this.form.value.qualification
           );
-          console.log('application submitted successfully');
           setTimeout(() => {
             this.router.navigate(['/']);
             this.form.reset();

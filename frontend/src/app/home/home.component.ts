@@ -9,6 +9,12 @@ import { DappService } from '../service/dapp.service';
 export class HomeComponent implements OnInit {
   constructor(private dapp: DappService) {}
   jobs = this.dapp.getJobs();
+  recievedData;
 
   ngOnInit(): void {}
+
+  async viewApplicant(jobId: number) {
+    const data = await this.dapp.getCandidiateApplication(jobId);
+    this.recievedData = data;
+  }
 }

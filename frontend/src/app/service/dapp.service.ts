@@ -78,6 +78,46 @@ export class DappService {
     );
   }
 
+  async getCandidiateApplication(jobId: number) {
+    const details = await this.web3.call('getCandidate', jobId);
+    const candidateNormalized = await this.normalizeCandidate(details);
+    return candidateNormalized;
+  }
+
+  private normalizeCandidate(details) {
+    return {
+      jobId: parseInt(details[0]),
+      candAddress: details[1],
+      name: details[2],
+      age: parseInt(details[3]),
+      phone: details[4],
+      qual: details[5],
+    };
+  }
+
+  createVerifiedEmployer(address: string, name: string) {
+    this.web3.executeTransaction('addVerifiedEmployer', address, name);
+  }
+
+  async getVEmployers() {
+    const vEmployers: any = [];
+    const totalEmployers = await this.web3.call('getAllVEmployers');
+    for (let i = 0; i < totalEmployers; i++) {
+      const empRaw = await this.web3.call('getVerifiedEmployer', i);
+      const empNormalized = this.normalizeEmployer(empRaw);
+      vEmployers.push(empNormalized);
+    }
+    return vEmployers;
+  }
+
+  normalizeEmployer(empRaw) {
+    return {
+      id: parseInt(empRaw[0]),
+      address: empRaw[1],
+      name: empRaw[2],
+    };
+  }
+
   async getCurrentAccount() {
     const currentAccount = await this.web3.getAccount();
     return currentAccount;
