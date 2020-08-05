@@ -11,6 +11,7 @@ import { DappService } from '../service/dapp.service';
 export class CandidateComponent implements OnInit {
   form: FormGroup;
   jobId;
+  acc;
 
   constructor(
     private dapp: DappService,
@@ -39,7 +40,7 @@ export class CandidateComponent implements OnInit {
     console.log(this.jobId);
   }
 
-  onSubmit() {
+  async onSubmit() {
     console.log(this.form);
     console.log(this.jobId);
     if (this.form.invalid) {
@@ -48,16 +49,28 @@ export class CandidateComponent implements OnInit {
       if (this.jobId == null) {
         console.log('cannot submit without jobid');
       } else {
-        this.dapp.candidateApplication(
-          this.jobId,
-          this.form.value.name,
-          this.form.value.age,
-          this.form.value.phNumber,
-          this.form.value.qualification
-        );
-        console.log('application submitted successfully');
-        this.form.reset();
-        this.router.navigate(['/']);
+        this.acc = await this.dapp.getCurrentAccount();
+        const existingAddress = localStorage.getItem('address');
+        const existingType = localStorage.getItem('type');
+        if (existingAddress === this.acc && existingType === 'employer') {
+          alert('Employer cannot enroll for job!');
+          console.log('Employer cannot enroll for job!');
+        } else {
+          localStorage.setItem('address', this.acc);
+          localStorage.setItem('type', 'candidate');
+          this.dapp.candidateApplication(
+            this.jobId,
+            this.form.value.name,
+            this.form.value.age,
+            this.form.value.phNumber,
+            this.form.value.qualification
+          );
+          console.log('application submitted successfully');
+          setTimeout(() => {
+            this.router.navigate(['/']);
+            this.form.reset();
+          }, 1000);
+        }
       }
     }
   }

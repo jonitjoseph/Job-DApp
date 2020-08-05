@@ -23,12 +23,13 @@ export class DappService {
 
   private normalizeJob(jobRaw): Job {
     return {
-      id: parseInt(jobRaw[0]),
-      companyName: jobRaw[1],
-      jobTitle: jobRaw[2],
-      location: jobRaw[3],
-      jobType: jobRaw[4],
-      reward: parseInt(jobRaw[5]),
+      address: jobRaw[0],
+      id: parseInt(jobRaw[1]),
+      companyName: jobRaw[2],
+      jobTitle: jobRaw[3],
+      location: jobRaw[4],
+      jobType: jobRaw[5],
+      reward: parseInt(jobRaw[6]),
     };
   }
 
@@ -43,16 +44,13 @@ export class DappService {
     return this.jobList;
   }
 
-  async createJob(
+  createJob(
     companyName: string,
     jobTitle: string,
     location: string,
     jobType: string,
     reward: number
   ) {
-    const acc = await this.web3.getAccount();
-    localStorage.setItem('address', acc);
-    localStorage.setItem('type', 'employer');
     this.web3.executeTransaction(
       'addJob',
       companyName,
@@ -63,31 +61,26 @@ export class DappService {
     );
   }
 
-  async candidateApplication(
+  candidateApplication(
     jobId: number,
     name: string,
     age: number,
     phNumber: number,
     qualification: string
   ) {
-    const acc = await this.web3.getAccount();
-    const existingAddress = localStorage.getItem('address');
-    const existingType = localStorage.getItem('type');
-    if (existingAddress === acc && existingType === 'employer') {
-      alert('Employer cannot enroll for job!');
-      console.log('Employer cannot enroll for job!');
-    } else {
-      localStorage.setItem('address', acc);
-      localStorage.setItem('type', 'candidate');
-      this.web3.executeTransaction(
-        'addCandidate',
-        jobId,
-        name,
-        age,
-        phNumber,
-        qualification
-      );
-    }
+    this.web3.executeTransaction(
+      'addCandidate',
+      jobId,
+      name,
+      age,
+      phNumber,
+      qualification
+    );
+  }
+
+  async getCurrentAccount() {
+    const currentAccount = await this.web3.getAccount();
+    return currentAccount;
   }
 
   onEvent(name: string) {

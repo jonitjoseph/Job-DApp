@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import Web3 from 'web3';
 import { Contract } from 'web3-eth-contract';
 
-// declare let require: any;
 declare let window: any;
 const contractJSON = require('../../../truffle/build/contracts/CIEG.json');
 const contractAddress = contractJSON.networks['5777'].address;
@@ -17,7 +16,6 @@ export class Web3Service {
   private contract: Contract;
   private account: any = null;
   private enable: any;
-  // private contractAddress = '0xd7334e9E0fafC4Bd7E81C5870bcf485DaD9929E5';
 
   constructor() {
     if (window.web3) {
@@ -53,6 +51,7 @@ export class Web3Service {
         window.web3.eth.getAccounts((err, retAccount) => {
           console.log('web3.service / getAccount / retAccount');
           console.log(retAccount);
+          localStorage.setItem('currentUser', retAccount);
           if (retAccount.length > 0) {
             this.account = retAccount[0];
             resolve(this.account);

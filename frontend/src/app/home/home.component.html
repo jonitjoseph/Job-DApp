@@ -34,6 +34,8 @@
       </mat-chip-list>
       <p style="margin-top: 1rem;">Location: {{ job.location }}</p>
       <p>Type :{{ job.jobType }}</p>
+      <p>Employer Address :</p>
+      <p style="word-wrap: break-word;">{{ job.address }}</p>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button [routerLink]="['/candidate',job.id]">APPLY</button>

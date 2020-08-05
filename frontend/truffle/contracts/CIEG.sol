@@ -8,19 +8,18 @@ contract CIEG {
   constructor() public {
     owner = msg.sender;
   }
-
-  uint256 perfMatrix;
+  
   struct Candidate {
     uint256 applJobId;
     string name;
     uint256 age;
     string phNumber;
-    // string email;
-    // string instName;
     string qual;
+    bool enrolled;
   }
 
   struct Job {
+    address empAddress;
     uint256 id;
     string companyName;
     string jobTitle;
@@ -28,21 +27,30 @@ contract CIEG {
     string jobType;
     uint256 reward;
   }
+  
+  struct PerformanceMatrix {
+      address candAddress;
+      uint256 enrolledJobId;
+      uint256 evalScore;
+  }
 
   mapping(address => Candidate) private candidates;
+  mapping(address => PerformanceMatrix) public perfMatrix;
   Job[] private jobs;
 
   event JobCreated(uint256 _jobId);
+  event EnrolledforJob(uint256 _applJobId);
   
   function addCandidate(uint256 _applJobId, string memory _name, uint256 _age, string memory _phNumber, string memory _qual) public {
-    //    string memory _email, string memory _instName,  _email, _instName,
-      candidates[msg.sender] = Candidate(_applJobId, _name, _age, _phNumber, _qual);
+      candidates[msg.sender] = Candidate(_applJobId, _name, _age, _phNumber, _qual, true);
+      emit EnrolledforJob(_applJobId);
   }
   
   function addJob(string memory _companyName, string memory _jobTitle, string memory _location, string memory _jobType, uint256 _reward) public {
       uint256 jobId = jobs.length;
 
       Job memory newJob = Job({
+        empAddress: msg.sender,
         id: jobId,
         companyName: _companyName,
         jobTitle: _jobTitle,
@@ -55,9 +63,10 @@ contract CIEG {
       emit JobCreated(jobId);
   }
 
-  function getJob(uint256 _jobId) external view returns(uint256, string memory, string memory, string memory, string memory, uint256) {
+  function getJob(uint256 _jobId) external view returns(address, uint256, string memory, string memory, string memory, string memory, uint256) {
     require(_jobId < jobs.length && _jobId >=0, "No job found!");
     return(
+      jobs[_jobId].empAddress,    
       jobs[_jobId].id,
       jobs[_jobId].companyName,
       jobs[_jobId].jobTitle,
@@ -69,6 +78,17 @@ contract CIEG {
 
   function getAllJobs() external view returns(uint256) {
     return jobs.length;
+  }
+  
+  function getCandidate(address _candidate) external view returns(uint256, string memory, uint256, string memory, string memory, bool) {
+    return (
+      candidates[_candidate].applJobId,
+      candidates[_candidate].name,
+      candidates[_candidate].age,
+      candidates[_candidate].phNumber,
+      candidates[_candidate].qual,
+      candidates[_candidate].enrolled
+      );
   }
 
 }

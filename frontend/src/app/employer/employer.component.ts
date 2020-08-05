@@ -10,6 +10,7 @@ import { DappService } from '../service/dapp.service';
 })
 export class EmployerComponent implements OnInit {
   form: FormGroup;
+  acc;
 
   constructor(private dapp: DappService, private router: Router) {}
 
@@ -23,7 +24,7 @@ export class EmployerComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     console.log(this.form);
     if (this.form.invalid) {
       return;
@@ -35,8 +36,13 @@ export class EmployerComponent implements OnInit {
         this.form.value.jobType,
         this.form.value.reward
       );
+      this.acc = await this.dapp.getCurrentAccount();
+      localStorage.setItem('address', this.acc);
+      localStorage.setItem('type', 'employer');
+      setTimeout(() => {
+        this.router.navigate(['/']);
+        this.form.reset();
+      }, 1000);
     }
-    this.form.reset();
-    this.router.navigate(['/']);
   }
 }
