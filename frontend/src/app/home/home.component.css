@@ -6,7 +6,7 @@
   background-image: url("/assets/profile.svg");
   background-size: cover;
 }
-.container{
+.container {
   display: flex;
   order: 5;
   flex-direction: row;

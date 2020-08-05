@@ -1,6 +1,7 @@
+<h1 style="text-align: center; margin: 1rem;">Available Jobs / Internships</h1>
+<br />
 <div class="container">
-
-  <mat-card class="card" *ngIf=!jobs>
+  <mat-card class="card" *ngIf="!jobs">
     <mat-card-header>
       <div mat-card-avatar class="header-image"></div>
       <mat-card-title>Job Title</mat-card-title>
@@ -38,8 +39,7 @@
       <p style="word-wrap: break-word;">{{ job.address }}</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button [routerLink]="['/candidate',job.id]">APPLY</button>
+      <button mat-button [routerLink]="['/candidate', job.id]">APPLY</button>
     </mat-card-actions>
   </mat-card>
-  
 </div>
