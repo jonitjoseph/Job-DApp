@@ -1,103 +1,143 @@
 const CIEG = artifacts.require("CIEG");
 
 contract("CIEG", async (accounts) => {
-  it("Verified Employer", async () => {
+  it("Adding Verified Employer from Owner", async () => {
     cieg = await CIEG.deployed();
-    employerAddress = accounts[1];
-    employerName = "A";
-    empVId = 0;
-    try {
-      await cieg.addVerifiedEmployer(employerAddress, employerName);
-      verifiedEmployerDetails = await cieg.getVerifiedEmployer(empVId);
-      console.log("verifiedEmployerDetails", verifiedEmployerDetails);
-      assert.equal(verifiedEmployerDetails[0], empVId, "Test Fail");
-      assert.equal(verifiedEmployerDetails[1], employerAddress, "Test Fail");
-      assert.equal(verifiedEmployerDetails[2], employerName, "Test Fail");
-    } catch (err) {
-      assert(err);
-      console.log(err);
-    }
+    let verifiedEmployer = await cieg.addVerifiedEmployer(accounts[1], "AAA", {
+      from: accounts[0],
+    });
+    assert(verifiedEmployer);
   });
-  it("Performance Matrix", async () => {
+  it("Adding Verified Employer from Not-Owner", async () => {
     cieg = await CIEG.deployed();
-    employerAddressPM = accounts[1];
-    candidateAddressPM = accounts[2];
-    enrolledJobId = 0;
-    evalScore = 4;
+    let result;
     try {
-      await cieg.addPerfMatrix(
-        employerAddressPM,
-        candidateAddressPM,
-        enrolledJobId,
-        evalScore
-      );
-      perfMatrix = await cieg.getPerfMatrix(enrolledJobId);
-      console.log("perfMatrix", perfMatrix);
-      assert.equal(perfMatrix[0], employerAddressPM, "Test Fail");
-      assert.equal(perfMatrix[1], candidateAddressPM, "Test Fail");
-      assert.equal(perfMatrix[2], enrolledJobId, "Test Fail");
-      assert.equal(perfMatrix[3], evalScore, "Test Fail");
+      await cieg.addVerifiedEmployer(accounts[1], "AAA", { from: accounts[2] });
+      result = false;
     } catch (err) {
-      assert(err);
-      console.log(err);
+      result = true;
     }
+    assert(result);
   });
-  it("Candidate", async () => {
+  it("Adding Job by Verified Employer", async () => {
     cieg = await CIEG.deployed();
-    appliedJobId = 0;
-    name = "ABCD";
-    age = 20;
-    phone = "98765";
-    qual = "xyz";
-    candidateAddressCD = accounts[3];
+    let verifiedEmployer = await cieg.addVerifiedEmployer(accounts[1], "AAA", {
+      from: accounts[0],
+    });
+    let jobAdd = await cieg.addJob(0, "ABCD", "EFGH", "IJKL", "MNOP", 1, {
+      from: accounts[1],
+    });
+    assert(jobAdd);
+  });
+  it("Adding Job by Not-Verified Employer", async () => {
+    cieg = await CIEG.deployed();
+    let result;
     try {
-      await cieg.addCandidate(appliedJobId, name, age, phone, qual, {
-        from: candidateAddressCD,
+      await cieg.addJob(0, "ABCD", "EFGH", "IJKL", "MNOP", 1, {
+        from: accounts[2],
       });
-      candidateDetails = await cieg.getCandidate(appliedJobId);
-      console.log("candidateDetails", candidateDetails);
-      assert.equal(candidateDetails[0], appliedJobId, "Test Fail");
-      assert.equal(candidateDetails[1], age, "Test Fail");
-      assert.equal(candidateDetails[2], name, "Test Fail");
-      assert.equal(candidateDetails[3], phone, "Test Fail");
-      assert.equal(candidateDetails[4], qual, "Test Fail");
+      result = false;
     } catch (err) {
-      assert(err);
-      console.log(err);
+      result = true;
     }
+    assert(result);
   });
-  it("Job", async () => {
+  it("Adding Job by Owner", async () => {
     cieg = await CIEG.deployed();
-    evid = 0;
-    companyName = "ABCDEF";
-    jobTitle = "GHIJKL";
-    location = "MNOPQR";
-    jobType = "STUVWX";
-    reward = 2;
-    employerAddress = accounts[1];
-    jobId = 1;
+    let result;
     try {
-      await cieg.addJob(
-        evid,
-        companyName,
-        jobTitle,
-        location,
-        jobType,
-        reward,
-        { from: employerAddress }
-      );
-      jobDetails = await cieg.getJob(jobId);
-      console.log("jobDetails", jobDetails);
-      assert.equal(jobDetails[0], employerAddress, "Test Fail");
-      assert.equal(jobDetails[1], jobId, "Test Fail");
-      assert.equal(jobDetails[2], companyName, "Test Fail");
-      assert.equal(jobDetails[3], jobTitle, "Test Fail");
-      assert.equal(jobDetails[4], location, "Test Fail");
-      assert.equal(jobDetails[5], jobType, "Test Fail");
-      assert.equal(jobDetails[5], reward, "Test Fail");
+      await cieg.addJob(0, "ABCD", "EFGH", "IJKL", "MNOP", 1, {
+        from: accounts[0],
+      });
+      result = false;
     } catch (err) {
-      assert(err);
-      console.log(err);
+      result = true;
     }
+    assert(result);
+  });
+  it("Adding Performance Matrix of a Candidate", async () => {
+    cieg = await CIEG.deployed();
+    let perfMatrix = await cieg.addPerfMatrix(accounts[1], accounts[2], 0, 4, {
+      from: accounts[0],
+    });
+    assert(perfMatrix);
+  });
+  it("Enrolling Candidate for a Job", async () => {
+    cieg = await CIEG.deployed();
+    let candidate = await cieg.addCandidate(0, "ABC", 20, "987654", "DEF", {
+      from: accounts[2],
+    });
+    assert(candidate);
+  });
+  it("Enrolling Candidate for a Job by Owner", async () => {
+    cieg = await CIEG.deployed();
+    let result;
+    try {
+      let candidate = await cieg.addCandidate(0, "ABC", 20, "987654", "DEF", {
+        from: accounts[0],
+      });
+      result = false;
+    } catch (err) {
+      result = true;
+    }
+    assert(result);
+  });
+  it("Retrieving a Job", async () => {
+    cieg = await CIEG.deployed();
+    let verifiedEmployer = await cieg.addVerifiedEmployer(accounts[1], "AAA", {
+      from: accounts[0],
+    });
+    let jobAdd = await cieg.addJob(0, "ABCD", "EFGH", "IJKL", "MNOP", 1, {
+      from: accounts[1],
+    });
+    let jobRetrieval = await cieg.getJob(0, { from: accounts[1] });
+    assert(jobRetrieval);
+  });
+  it("Retrieving an Unknown Job", async () => {
+    cieg = await CIEG.deployed();
+    let verifiedEmployer = await cieg.addVerifiedEmployer(accounts[1], "AAA", {
+      from: accounts[0],
+    });
+    let jobAdd = await cieg.addJob(0, "ABCD", "EFGH", "IJKL", "MNOP", 1, {
+      from: accounts[1],
+    });
+    let result;
+    try {
+      let jobRetrieval = await cieg.getJob(-250, { from: accounts[1] });
+      result = false;
+    } catch (err) {
+      result = true;
+    }
+    assert(result);
+  });
+  it("Retrieving Specific Job Details", async () => {
+    cieg = await CIEG.deployed();
+    let verifiedEmployer = await cieg.addVerifiedEmployer(accounts[1], "AAA", {
+      from: accounts[0],
+    });
+    let jobAdd = await cieg.addJob(0, "ABCD", "EFGH", "IJKL", "MNOP", 1, {
+      from: accounts[1],
+    });
+    let jobRetrieval = await cieg.getJobDetails(0, { from: accounts[1] });
+    assert(jobRetrieval);
+  });
+  it("Retrieving a particular Candidate", async () => {
+    cieg = await CIEG.deployed();
+    let candidateRetrieval = await cieg.getCandidate(0, { from: accounts[1] });
+    assert(candidateRetrieval);
+  });
+  it("Retrieving a Verified Employer", async () => {
+    cieg = await CIEG.deployed();
+    let employerRetrieval = await cieg.getVerifiedEmployer(0, {
+      from: accounts[1],
+    });
+    assert(employerRetrieval);
+  });
+  it("Retrieving a Performance Matrix of a Candidate", async () => {
+    cieg = await CIEG.deployed();
+    let perfMatrixRetrieval = await cieg.getPerfMatrix(0, {
+      from: accounts[1],
+    });
+    assert(perfMatrixRetrieval);
   });
 });
