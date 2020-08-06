@@ -58,6 +58,12 @@ contract CIEG {
       require(msg.sender == owner, "Owners only can add verified employers");
       _;
   }
+
+  modifier verified_employer(uint256 _evid) {
+      require(_evid == verifiedEmployers[_evid].id, "Employer Id doesnot match!");
+      require(msg.sender == verifiedEmployers[_evid].verifiedEmpAddress, "Not a verified employer!");
+      _;
+  }
   
   function addVerifiedEmployer(address _empAddress, string memory _empName) public only_owner {
       uint256 empVId = verifiedEmployers.length;
@@ -82,7 +88,7 @@ contract CIEG {
         changeJobStatus(_applJobId);
   }
   
-  function addJob(string memory _companyName, string memory _jobTitle, string memory _location, string memory _jobType, uint256 _reward) public owner_disallow {
+  function addJob(uint256 _evid, string memory _companyName, string memory _jobTitle, string memory _location, string memory _jobType, uint256 _reward) public owner_disallow verified_employer(_evid){
       uint256 jobId = jobs.length;
 
       Job memory newJob = Job({

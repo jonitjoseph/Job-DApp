@@ -58,6 +58,7 @@ export class DappService {
   }
 
   createJob(
+    evid: number,
     companyName: string,
     jobTitle: string,
     location: string,
@@ -66,6 +67,7 @@ export class DappService {
   ) {
     this.web3.executeTransaction(
       'addJob',
+      evid,
       companyName,
       jobTitle,
       location,

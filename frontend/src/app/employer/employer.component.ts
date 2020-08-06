@@ -16,6 +16,7 @@ export class EmployerComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = new FormGroup({
+      evid: new FormControl(null, { validators: [Validators.required] }),
       companyName: new FormControl(null, { validators: [Validators.required] }),
       jobTitle: new FormControl(null, { validators: [Validators.required] }),
       jobLocation: new FormControl(null, { validators: [Validators.required] }),
@@ -30,6 +31,7 @@ export class EmployerComponent implements OnInit {
       return;
     } else {
       this.dapp.createJob(
+        this.form.value.evid,
         this.form.value.companyName,
         this.form.value.jobTitle,
         this.form.value.jobLocation,
