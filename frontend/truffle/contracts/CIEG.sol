@@ -35,7 +35,15 @@ contract CIEG {
     string verifiedEmpName;
   }
 
+  struct PerformanceMatrix {
+    address candAddress;
+    address vEmpAddress;
+    uint256 enrolledJobId;
+    uint256 evalScore;
+  }
+
   mapping(uint256 => Candidate) private candidates;
+  mapping(uint256 => PerformanceMatrix) private perfMatrix;
   Job[] private jobs;
   VerifiedEmployer[] private verifiedEmployers;
 
@@ -47,7 +55,7 @@ contract CIEG {
   }
   
   modifier only_owner() {
-      require(msg.sender == owner, "Owner can add verified employers");
+      require(msg.sender == owner, "Owners only can add verified employers");
       _;
   }
   
@@ -60,6 +68,11 @@ contract CIEG {
           verifiedEmpName: _empName
       });
       verifiedEmployers.push(newVEmp);
+  }
+
+  function addPerfMatrix(address _vEmpAddress, address _candAddress, uint256 _enrolledJobId, uint256 _evalScore) public {
+      uint256 enrldJobId = _enrolledJobId;
+      perfMatrix[enrldJobId] = PerformanceMatrix(_vEmpAddress, _candAddress, _enrolledJobId, _evalScore);
   }
  
   function addCandidate(uint256 _applJobId, string memory _name, uint256 _age, string memory _phNumber, string memory _qual) public owner_disallow {
@@ -104,6 +117,13 @@ contract CIEG {
     );
   }
 
+  function getJobDetails(uint256 _jobId) external view returns(address, uint256) {
+    return(
+      jobs[_jobId].empAddress,
+      jobs[_jobId].reward    
+    );
+  }
+
   function getAllJobs() external view returns(uint256) {
     return jobs.length;
   }
@@ -129,6 +149,15 @@ contract CIEG {
         verifiedEmployers[_empVId].id,
         verifiedEmployers[_empVId].verifiedEmpAddress,
         verifiedEmployers[_empVId].verifiedEmpName
+    );
+  }
+
+  function getPerfMatrix(uint256 _jobId) external view returns(address, address ,uint256, uint256) {
+    return (
+        perfMatrix[_jobId].candAddress,
+        perfMatrix[_jobId].vEmpAddress,
+        perfMatrix[_jobId].enrolledJobId,
+        perfMatrix[_jobId].evalScore
     );
   }
 

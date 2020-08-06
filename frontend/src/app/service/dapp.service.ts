@@ -44,6 +44,19 @@ export class DappService {
     return this.jobList;
   }
 
+  async getSpecificJobDetails(jobId: number) {
+    const detailsRaw = await this.web3.call('getJobDetails', jobId);
+    const detailsNormalized = await this.normalizeJobDetails(detailsRaw);
+    return detailsNormalized;
+  }
+
+  private normalizeJobDetails(detailsRaw) {
+    return {
+      address: detailsRaw[0],
+      reward: detailsRaw[1],
+    };
+  }
+
   createJob(
     companyName: string,
     jobTitle: string,
@@ -115,6 +128,36 @@ export class DappService {
       id: parseInt(empRaw[0]),
       address: empRaw[1],
       name: empRaw[2],
+    };
+  }
+
+  perfMatrix(
+    candAddress: string,
+    vEmpAddress: string,
+    enrolledJobId: number,
+    evalScore: number
+  ) {
+    this.web3.executeTransaction(
+      'addPerfMatrix',
+      candAddress,
+      vEmpAddress,
+      enrolledJobId,
+      evalScore
+    );
+  }
+
+  async getPerfMatrix(jobId: number) {
+    const performance = await this.web3.call('getPerfMatrix', jobId);
+    const performanceNormalized = await this.normalizePerformance(performance);
+    return performanceNormalized;
+  }
+
+  private normalizePerformance(performance) {
+    return {
+      candAddress: performance[0],
+      vEmpAddress: performance[1],
+      enrolledJobId: parseInt(performance[2]),
+      evalScore: parseInt(performance[3]),
     };
   }
 

@@ -1,0 +1,52 @@
+<mat-card class="card">
+  <h1 style="text-align: center;">Get Job Details</h1>
+  <br />
+  <h3>Candidate Address : {{ candAddress }}</h3>
+  <h3>Job ID : {{ jobId }}</h3>
+  <h3>Employer Address : {{ jobDetails.address }}</h3>
+  <h3>Reward : {{ jobDetails.reward }}</h3>
+  <button mat-raised-button (click)="getJobDetails(jobId)">
+    JOB DETAILS
+  </button>
+</mat-card>
+
+<mat-card class="card" *ngIf="!perfDetails.evalScore">
+  <h1 style="text-align: center;">Add Performance Matrix</h1>
+  <br />
+  <form [formGroup]="form" (submit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Performance Matrix</mat-label>
+      <input
+        matInput
+        type="number"
+        placeholder="ex: 1 to 5"
+        name="perfMatrix"
+        formControlName="perfMatrix"
+      />
+      <mat-error *ngIf="form.get('perfMatrix').hasError('required')"
+        >Please Valid Performance Matrix</mat-error
+      >
+      <mat-error *ngIf="form.get('perfMatrix').hasError('min')"
+        >Please Enter values between 1 to 5</mat-error
+      >
+      <mat-error *ngIf="form.get('perfMatrix').hasError('max')"
+        >Please Enter values between 1 to 5</mat-error
+      >
+    </mat-form-field>
+    <br />
+    <br />
+    <button mat-raised-button color="accent" type="submit">SAVE</button>
+  </form>
+</mat-card>
+
+<mat-card class="card">
+  <h1 style="text-align: center;">View Performance Matrix</h1>
+  <br />
+  <h3>Candidate Address : {{ perfDetails.candAddress }}</h3>
+  <h3>Employer Address : {{ perfDetails.vEmpAddress }}</h3>
+  <h3>Job ID : {{ perfDetails.enrolledJobId }}</h3>
+  <h3>Performance Matrix : {{ perfDetails.evalScore }}</h3>
+  <button mat-stroked-button (click)="getPerfMatrix(jobId)">
+    Performance Matrix
+  </button>
+</mat-card>

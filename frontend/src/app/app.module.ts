@@ -13,6 +13,7 @@ import { AdminComponent } from './admin/admin.component';
 import { EmployerComponent } from './employer/employer.component';
 import { CandidateComponent } from './candidate/candidate.component';
 import { HomeComponent } from './home/home.component';
+import { PerfMatrixComponent } from './perf-matrix/perf-matrix.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { HomeComponent } from './home/home.component';
     EmployerComponent,
     CandidateComponent,
     HomeComponent,
+    PerfMatrixComponent,
   ],
   imports: [
     BrowserModule,

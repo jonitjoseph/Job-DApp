@@ -1,4 +1,4 @@
-<h1 style="text-align: center; margin: 1rem;">Available Jobs / Internships</h1>
+<h1 style="text-align: center; margin: 1rem;">Jobs / Internships Feed</h1>
 <br />
 <div class="container">
   <mat-card class="card" *ngIf="!jobs">
@@ -64,7 +64,20 @@
         </p>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button>APPLY</button>
+        <button
+          *ngIf="
+            recievedData.candAddress != 0;
+            x0000000000000000000000000000000000000000
+          "
+          mat-button
+          [routerLink]="[
+            '/perfMatrix',
+            recievedData.candAddress,
+            recievedData.jobId
+          ]"
+        >
+          MORE DETAILS
+        </button>
       </mat-card-actions>
     </mat-card>
   </div>
