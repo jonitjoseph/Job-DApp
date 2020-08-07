@@ -25,6 +25,8 @@ export class EmployerComponent implements OnInit {
     });
   }
 
+  // Transfer the submited data, adding a job, to the createJob in dapp service
+
   async onSubmit() {
     console.log(this.form);
     if (this.form.invalid) {

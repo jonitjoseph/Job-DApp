@@ -30,6 +30,9 @@ export class CandidateComponent implements OnInit {
         validators: [Validators.required],
       }),
     });
+
+    // Retrieve the route parameters and store
+
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('jobId')) {
         this.jobId = paramMap.get('jobId');
@@ -38,6 +41,8 @@ export class CandidateComponent implements OnInit {
       }
     });
   }
+
+  // Transfer the submited data, adding candidate for a job, to the candidateApplication in dapp service
 
   async onSubmit() {
     if (this.form.invalid) {

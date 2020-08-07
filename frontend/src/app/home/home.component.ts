@@ -13,6 +13,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  // Retrieve the specific candidate application details.
+  // calling getCandidiateApplication from dapp service.
+
   async viewApplicant(jobId: number) {
     const data = await this.dapp.getCandidiateApplication(jobId);
     this.recievedData = data;

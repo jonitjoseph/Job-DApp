@@ -25,6 +25,8 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  // Transfer the submited data, adding verified employer, to the createVerifiedEmployer in dapp service
+
   onSubmit() {
     if (this.form.invalid) {
       alert('Invalid Form Data');

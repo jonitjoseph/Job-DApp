@@ -23,6 +23,8 @@ export class PerfMatrixComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Retrieve the route parameters and store
+
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('candAddress') && paramMap.has('jobId')) {
         this.candAddress = paramMap.get('candAddress');
@@ -39,6 +41,8 @@ export class PerfMatrixComponent implements OnInit {
       }),
     });
   }
+
+  // Transfer the submited data, adding performance matrix of a candidate for a job, to the perfMatrix in dapp service
 
   async onSubmit() {
     if (this.form.invalid) {
@@ -61,10 +65,16 @@ export class PerfMatrixComponent implements OnInit {
     }
   }
 
+  // Retrieve the specific job details.
+  // calling getSpecificJobDetails from dapp service.
+
   async getJobDetails(jobId) {
     this.jobDetails = await this.dapp.getSpecificJobDetails(jobId);
     this.empAddress = this.jobDetails.address;
   }
+
+  // Retrieve the specific performance matrix details.
+  // calling getPerfMatrix from dapp service.
 
   async getPerfMatrix(jobId) {
     if (this.empAddress == null) {

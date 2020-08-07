@@ -11,6 +11,10 @@ export class HeaderComponent implements OnInit {
   currentUser;
 
   async ngOnInit(): Promise<void> {
+
+    // Retrieve the current address of the user provided by metamask.
+    // Calling getCurrentAccount from dapp service.
+
     this.currentUser = await this.dapp.getCurrentAccount();
   }
 }

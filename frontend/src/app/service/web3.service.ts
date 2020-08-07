@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import Web3 from 'web3';
 import { Contract } from 'web3-eth-contract';
 
+// This web3 services is the bridge between the blockchain and frontend.
+
 declare let window: any;
 const contractJSON = require('../../../truffle/build/contracts/CIEG.json');
 const contractAddress = contractJSON.networks['5777'].address;
@@ -18,6 +20,10 @@ export class Web3Service {
   private enable: any;
 
   constructor() {
+    // Checking if the window contains the web3 injected by the web browser
+    // Metamask injects web3 if installed.
+    // window.ethereum will be injected by metamask in future.
+    // Switch to window.ethereum if needed.
     if (window.web3) {
       // this.web3 = new Web3(window.ethereum);
       this.web3 = new Web3(
@@ -34,6 +40,8 @@ export class Web3Service {
     }
   }
 
+  // Request access to users account
+
   private async enableMetaMaskAccount(): Promise<any> {
     let enable = false;
     await new Promise((resolve, reject) => {
@@ -41,6 +49,8 @@ export class Web3Service {
     });
     return Promise.resolve(enable);
   }
+
+  // Retrieve the selected account
 
   public async getAccount(): Promise<string> {
     console.log('web3.service / getAccount / start');
@@ -69,6 +79,9 @@ export class Web3Service {
     return Promise.resolve(this.account);
   }
 
+  // Function to execute any transaction on blockchain. 
+  // All functions which involves writing to blockchain pass through this generic function.
+
   async executeTransaction(fnName: string, ...args: any[]): Promise<any> {
     const acc = await this.getAccount();
     console.log(acc);
@@ -84,10 +97,16 @@ export class Web3Service {
       });
   }
 
+  // Function to call from a blockchain.
+  // All functions involving retrieving the data from blockchain pass through this generic function.
+
   async call(fnName: string, ...args: any[]) {
     const acc = await this.getAccount();
     return this.contract.methods[fnName](...args).call({ from: acc });
   }
+
+  // Function to recieve events happening on a blockchain.
+  // All events from the blockchain pass through this generic function. 
 
   onEvents(event: string) {
     return new Observable((observer) => {
