@@ -47,21 +47,16 @@ export class PerfMatrixComponent implements OnInit {
       if (this.empAddress == null) {
         alert('Get job details first!');
       } else {
-        // const acc = await this.dapp.getCurrentAccount();
-        // if (this.empAddress != acc) {
-        //   alert('Only Employer can add performance matrix!');
-        // } else {
-          this.dapp.perfMatrix(
-            this.candAddress,
-            this.empAddress,
-            this.jobId,
-            this.form.value.perfMatrix
-          );
-          setTimeout(() => {
-            this.router.navigate(['/']);
-            this.form.reset();
-          }, 1000);
-        // }
+        this.dapp.perfMatrix(
+          this.candAddress,
+          this.empAddress,
+          this.jobId,
+          this.form.value.perfMatrix
+        );
+        setTimeout(() => {
+          this.router.navigate(['/']);
+          this.form.reset();
+        }, 1000);
       }
     }
   }

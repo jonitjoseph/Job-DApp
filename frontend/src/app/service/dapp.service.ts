@@ -141,8 +141,8 @@ export class DappService {
   ) {
     this.web3.executeTransaction(
       'addPerfMatrix',
-      candAddress,
       vEmpAddress,
+      candAddress,
       enrolledJobId,
       evalScore
     );

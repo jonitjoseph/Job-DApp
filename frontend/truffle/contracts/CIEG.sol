@@ -77,6 +77,7 @@ contract CIEG {
   }
 
   function addPerfMatrix(address _vEmpAddress, address _candAddress, uint256 _enrolledJobId, uint256 _evalScore) public {
+      require(msg.sender == _vEmpAddress, "Employer only can add Performance Matrix!");
       uint256 enrldJobId = _enrolledJobId;
       perfMatrix[enrldJobId] = PerformanceMatrix(_vEmpAddress, _candAddress, _enrolledJobId, _evalScore);
   }
