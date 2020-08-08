@@ -1,0 +1,41 @@
+=============== Aug 8, 2020 (IST) ===============
+14:01:36.765123 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+14:01:36.803128 db@open opening
+14:01:36.818187 version@stat F·[] S·0B[] Sc·[]
+14:01:36.827513 db@janitor F·2 G·0
+14:01:36.827513 db@open done T·24.3843ms
+14:01:36.880964 db@close closing
+14:01:36.899004 db@close done T·18.0396ms
+=============== Aug 8, 2020 (IST) ===============
+14:11:21.082614 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+14:11:21.083609 version@stat F·[] S·0B[] Sc·[]
+14:11:21.084609 db@open opening
+14:11:21.084609 journal@recovery F·1
+14:11:21.093611 journal@recovery recovering @1
+14:11:21.118660 memdb@flush created L0@2 N·10 S·628B "H\xf7<..\r\xa9\x0f,v3":"r\x00\x00..\r\xa9\x0f,v5"
+14:11:21.128613 version@stat F·[1] S·628B[628B] Sc·[0.25]
+14:11:21.165362 db@janitor F·3 G·0
+14:11:21.165362 db@open done T·80.7528ms
+14:14:52.169308 db@close closing
+14:14:52.218282 db@close done T·48.9741ms
+=============== Aug 8, 2020 (IST) ===============
+14:15:18.304722 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+14:15:18.306758 version@stat F·[1] S·628B[628B] Sc·[0.25]
+14:15:18.306758 db@open opening
+14:15:18.306758 journal@recovery F·1
+14:15:18.308726 journal@recovery recovering @3
+14:15:18.339220 memdb@flush created L0@5 N·1 S·192B "Dat..ion,v12":"Dat..ion,v12"
+14:15:18.340273 version@stat F·[2] S·820B[820B] Sc·[0.50]
+14:15:18.375928 db@janitor F·4 G·0
+14:15:18.375928 db@open done T·69.1704ms
+=============== Aug 8, 2020 (IST) ===============
+14:15:31.463056 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+14:15:31.465049 version@stat F·[2] S·820B[820B] Sc·[0.50]
+14:15:31.465049 db@open opening
+14:15:31.466005 journal@recovery F·1
+14:15:31.474012 journal@recovery recovering @6
+14:15:31.484001 version@stat F·[2] S·820B[820B] Sc·[0.50]
+14:15:31.527020 db@janitor F·4 G·0
+14:15:31.527020 db@open done T·61.9706ms
+14:15:55.578702 db@close closing
+14:15:55.596707 db@close done T·18.0044ms

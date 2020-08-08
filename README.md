@@ -60,7 +60,13 @@ truffle migrate
 
 ### GETH
 
-### Ropsten/Rinkeby
+Find geth folder in docs.
+
+### Ropsten
+
+This project has been deployed to the Ropsten testnet. Find it using the below link.
+
+https://ropsten.etherscan.io/address/0xABc8962a4AF189BEFb1765B52BBa3E39Caf785Fb
 
 ### Running DApp
 
