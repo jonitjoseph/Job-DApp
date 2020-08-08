@@ -98,7 +98,7 @@ contract CIEG {
       perfMatrix[enrldJobId] = PerformanceMatrix(_vEmpAddress, _candAddress, _enrolledJobId, _evalScore);
   }
   /// @notice Function to add a candidate to a job
-  /// @param _applJobId recieve the job id of the job whic candidate applied to
+  /// @param _applJobId recieve the job id of the job which candidate applied to
   /// @param _name recieve the name of the candidate
   /// @param _age recieve the age of the candidate
   /// @param _phNumber recieve the phone number of the candidate
